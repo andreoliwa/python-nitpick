@@ -117,3 +117,36 @@ jobs:
           echo ${{ steps.semantic.outputs.new_release_patch_version }}
           echo ${{ steps.semantic.outputs.new_release_channel }}
           echo ${{ steps.semantic.outputs.new_release_notes }}
+
+  binaries:
+    strategy:
+      matrix:
+        python-version:
+          - "3.9"
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      # https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions#adding-a-system-path
+      - name: Add to PATH
+        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install global dependencies
+        run: python3 -m pip install --upgrade poetry
+
+      - name: Install project dependencies
+        run: poetry install -E compilation
+
+      - name: Build
+        shell: bash
+        run: poetry run python -m nuitka --standalone $(poetry run which nitpick) --assume-yes-for-downloads
+
+      # https://github.com/actions/upload-artifact/releases
+      - uses: actions/upload-artifact@v2
+        with:
+          name: nitpick-${{ matrix.os }}
+          path: nitpick.dist

@@ -57,30 +57,32 @@ sortedcontainers = "*"
 click = "*"
 # Pin marshmallow to avoid error on "pip install -U nitpick":
 # marshmallow-polyfield 5.7 has requirement marshmallow>=3.0.0b10, but you'll have marshmallow 2.19.5 which is incompatible.
-marshmallow = {version = ">=3.0.0b10"}
+marshmallow = { version = ">=3.0.0b10" }
 # Pin to avoid error on "flake8 ." when there is an invalid TOML style:
 # TypeError: _deserialize() got an unexpected keyword argument 'partial'
 marshmallow-polyfield = "^5.10"
 identify = "*"
 "more-itertools" = "*"
 pluggy = "*"
-pylint = {version = "*", optional = true}
-pytest = {version = "*", optional = true}
-pytest-cov = {version = "*", optional = true}
-testfixtures = {version = "*", optional = true}
-responses = {version = "*", optional = true}
-sphinx = {version = "*", optional = true}
-sphinx_rtd_theme = {version = "*", optional = true}
-sphobjinv = {version = "*", optional = true}
+pylint = { version = "*", optional = true }
+pytest = { version = "*", optional = true }
+pytest-cov = { version = "*", optional = true }
+testfixtures = { version = "*", optional = true }
+responses = { version = "*", optional = true }
+sphinx = { version = "*", optional = true }
+sphinx_rtd_theme = { version = "*", optional = true }
+sphobjinv = { version = "*", optional = true }
 pydantic = "*"
 autorepr = "*"
 loguru = "*"
 ConfigUpdater = "*"
+Nuitka = { version = "^0.6.12", optional = true }
 
 [tool.poetry.extras]
 lint = ["pylint"]
 test = ["pytest", "pytest-cov", "testfixtures", "responses"]
 doc = ["sphinx", "sphinx_rtd_theme", "sphobjinv"]
+compilation = ["Nuitka"]
 
 [tool.poetry.dev-dependencies]
 ipython = "*"

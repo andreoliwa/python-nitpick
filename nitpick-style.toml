@@ -1,6 +1,5 @@
 # Default style file for nitpick
 # https://raw.githubusercontent.com/andreoliwa/nitpick/v0.25.0/nitpick-style.toml
-
 [nitpick]
 minimum_version = "0.10.0"
 
@@ -26,4 +25,9 @@ include = [
 ]
 
 [nitpick.files."setup.cfg"]
-comma_separated_values = ["flake8.ignore", "flake8.exclude", "isort.skip", "isort.known_first_party"]
+comma_separated_values = [
+    "flake8.ignore",
+    "flake8.exclude",
+    "isort.skip",
+    "isort.known_first_party",
+]
