@@ -19,19 +19,20 @@ import click
 from slugify import slugify
 from sortedcontainers import SortedDict
 
-from nitpick import __version__
+from nitpick import PROJECT_NAME, __version__
 from nitpick.constants import (
     CONFIG_FILES,
     EDITOR_CONFIG,
-    GITHUB_BASE_URL,
     PACKAGE_JSON,
     PRE_COMMIT_CONFIG_YAML,
+    PROJECT_OWNER,
     PYLINTRC,
     PYPROJECT_TOML,
     READ_THE_DOCS_URL,
     SETUP_CFG,
 )
 from nitpick.core import Nitpick
+from nitpick.style.fetchers.github import GitHubURL
 
 RST_DIVIDER_FROM_HERE = ".. auto-generated-from-here"
 RST_DIVIDER_START = ".. auto-generated-start-{}"
@@ -221,7 +222,7 @@ def write_examples() -> int:
         {header}
         {dashes}
 
-        Contents of `{toml_file} <{base_url}v{version}/{toml_file}>`_:
+        Contents of `{toml_file} <{url}>`_:
 
         .. code-block::{language}
 
@@ -245,8 +246,7 @@ def write_examples() -> int:
                 header=header,
                 dashes="-" * len(header),
                 toml_file=base_name,
-                base_url=GITHUB_BASE_URL,
-                version=__version__,
+                url=GitHubURL(PROJECT_OWNER, PROJECT_NAME, f"v{__version__}", base_name).url,
                 # Skip TOML with JSON inside, to avoid this error message:
                 # nitpick/docs/examples.rst:193: WARNING: Could not lex literal_block as "toml". Highlighting skipped.
                 language="" if "contains_json" in toml_content else " toml",

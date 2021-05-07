@@ -21,8 +21,8 @@ from nitpick.constants import (
     NITPICK_STYLE_TOML,
     NITPICK_STYLES_INCLUDE_JMEX,
     PROJECT_NAME,
+    PROJECT_OWNER,
     PYPROJECT_TOML,
-    RAW_GITHUB_CONTENT_BASE_URL,
     TOML_EXTENSION,
 )
 from nitpick.exceptions import QuitComplainingError, pretty_exception
@@ -34,6 +34,7 @@ from nitpick.project import Project, climb_directory_tree
 from nitpick.schemas import BaseStyleSchema, flatten_marshmallow_errors
 from nitpick.style.config import ConfigValidator
 from nitpick.style.fetchers import StyleFetcherManager
+from nitpick.style.fetchers.github import GitHubURL
 from nitpick.typedefs import JsonDict, StrOrIterable, StrOrList, mypy_property
 from nitpick.violations import Fuss, Reporter, StyleViolations
 
@@ -81,7 +82,7 @@ class Style:  # pylint: disable=too-many-instance-attributes
     @staticmethod
     def get_default_style_url():
         """Return the URL of the default style for the current version."""
-        return f"{RAW_GITHUB_CONTENT_BASE_URL}v{__version__}/{NITPICK_STYLE_TOML}"
+        return GitHubURL(PROJECT_OWNER, PROJECT_NAME, f"v{__version__}", NITPICK_STYLE_TOML).raw_content_url
 
     def find_initial_styles(self, configured_styles: StrOrIterable) -> Iterator[Fuss]:
         """Find the initial style(s) and include them."""

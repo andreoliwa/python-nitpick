@@ -1,7 +1,6 @@
 """Style tests."""
-# pylint: disable=no-member
+from pathlib import Path
 from textwrap import dedent
-from typing import TYPE_CHECKING
 from unittest import mock
 from unittest.mock import PropertyMock
 
@@ -9,11 +8,9 @@ import pytest
 import responses
 
 from nitpick.constants import DOT_SLASH, PYPROJECT_TOML, READ_THE_DOCS_URL, SETUP_CFG, TOML_EXTENSION, TOX_INI
+from nitpick.style.fetchers.github import GitHubURL
 from nitpick.violations import Fuss
 from tests.helpers import SUGGESTION_BEGIN, SUGGESTION_END, XFAIL_ON_WINDOWS, ProjectMock, assert_conditions
-
-if TYPE_CHECKING:
-    from pathlib import Path
 
 
 @pytest.mark.parametrize("offline", [False, True])
@@ -705,3 +702,16 @@ def test_github_fetch(tmp_path):
             """,
         )
     )
+
+
+def test_convert_github_url_to_raw():
+    """Test a GitHub URL and its parts, raw URL, API URL."""
+    gh = GitHubURL.from_url("https://github.com/andreoliwa/nitpick/blob/develop/path/to/file.toml")
+    assert gh.owner == "andreoliwa"
+    assert gh.repository == "nitpick"
+    assert gh.git_reference == "develop"
+    assert gh.path == "path/to/file.toml"
+    assert gh.raw_content_url == "https://raw.githubusercontent.com/andreoliwa/nitpick/develop/path/to/file.toml"
+    assert gh.api_url == "https://api.github.com/repos/andreoliwa/nitpick"
+    assert gh.short_protocol_url == "gh://andreoliwa/nitpick/path/to/file.toml"
+    assert gh.long_protocol_url == "github://andreoliwa/nitpick/path/to/file.toml"

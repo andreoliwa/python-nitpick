@@ -3,6 +3,7 @@ import os
 
 import jmespath
 
+PROJECT_OWNER = "andreoliwa"
 PROJECT_NAME = "nitpick"
 FLAKE8_PREFIX = "NIP"
 CACHE_DIR_NAME = ".cache"
@@ -10,8 +11,6 @@ TOML_EXTENSION = ".toml"
 DOT_NITPICK_TOML = f".nitpick{TOML_EXTENSION}"
 NITPICK_STYLE_TOML = f"nitpick-style{TOML_EXTENSION}"
 MERGED_STYLE_TOML = f"merged-style{TOML_EXTENSION}"
-RAW_GITHUB_CONTENT_BASE_URL = f"https://raw.githubusercontent.com/andreoliwa/{PROJECT_NAME}/"
-GITHUB_BASE_URL = f"https://github.com/andreoliwa/{PROJECT_NAME}/blob/"
 READ_THE_DOCS_URL = "https://nitpick.rtfd.io/en/latest/"
 
 # Special files

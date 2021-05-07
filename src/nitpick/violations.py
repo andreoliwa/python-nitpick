@@ -98,7 +98,7 @@ class SharedViolations(ViolationEnum):
 
 
 # TODO: the Reporter class should track a global list of codes with __new__(),
-#  to be used by the `nitpick codes` CLI command
+#  to be used by the `nitpick violations` CLI command
 class Reporter:  # pylint: disable=too-few-public-methods
     """Error reporter."""
 

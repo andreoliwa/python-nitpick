@@ -16,7 +16,8 @@ pep257 = "{{ nit.absent() }}" # Jinja
 pycodestyle = "{{ nit.absent() }}" # Jinja
 pur = "{{ nit.absent() }}" # Jinja
 
-# TODO: pre-processing with Jinja to generate multiple sections with the same config? ["pyproject.toml".tool.poetry.{{ ['dependencies', 'dev-dependencies'] }}]
+# Pre-processing with Jinja to generate multiple sections with the same config? ["pyproject.toml".tool.poetry.{{ ['dependencies', 'dev-dependencies'] }}]
+# https://github.com/andreoliwa/nitpick/issues/283
 
 # Keys are present, with the expected types
 ["pyproject.toml".build-system]
